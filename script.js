@@ -1,0 +1,142 @@
+    const quizCard = document.querySelector(".quizCard")
+    const questionsDisplay = document.querySelector(".questionsDisplay");
+    const answersDisplay = document.querySelector(".answersDisplay");
+    const scoreDisplay = document.querySelector(".scoreDisplay");
+    const nextBtn = document.querySelector(".nextBtn");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questions = [
+      
+      {
+        question: "What does HTML stand for?",
+        answers: ["High Transfer Machine Language", "Hyper Text Markup Language",
+         "Home Tool Markup Language", "Hyper Tool Machine Language"],
+         correct: "Hyper Text Markup Language"
+      },
+
+      {
+        question: "Which keyword creates a variable in JavaScript?",
+        answers: ["style", "query", "let", "design"],
+        correct: "let"
+      },
+
+      {
+        question: "What does addEventListener() do?",
+        answers: ["Delete HTML", "Listens for user actions", "Create CSS", "Refresh browser"],
+        correct: "Listens for user actions"
+      },
+
+      {
+        question: "What symbol represents an array?",
+        answers: ["{}", "()", "[]", "<>"],
+        correct: "[]"
+      },
+
+      {
+        question: "What does forEach() do?",
+        answers: ["Delete variables", "Create APIs", "Loops through arrays", "Styles HTML"],
+        correct: "Loops through arrays"
+      },
+
+      {
+        question: "What does map() return?",
+        answers: ["A button", "Nothing", "A new array", "A number"],
+        correct: "A new array"
+      },
+
+      {
+        question: "Which method converts text into a number?",
+        answers: ["push()", "map()", "Number()", "filter"],
+        correct: "Number()"
+      },
+
+      {
+        question: "What does querySelector() do?",
+        answers: ["Create arrays", "Delete CSS", "Select HTML elements", "Refreshes page"],
+        correct: "Select HTML elements"
+      },
+
+      {
+        question: "Where are multiple values commonly stored in JavaScript?",
+        answers: ["Buttons", "Functions", "Arrays", "CSS"],
+        correct: "Arrays"
+      },
+
+      {
+        question: "What does push() do in an array?",
+        answers: ["Delete HTML", "Styles page", "Adds an item to an array", "Refreshes browser"],
+        correct: "Adds an item to an array"
+      }
+
+    ];
+
+    function renderQuestion(){
+      answersDisplay.innerHTML = "";
+      const currentQuestion = questions[currentQuestionIndex];
+      questionsDisplay.textContent = currentQuestion.question;
+
+       currentQuestion.answers.forEach(answer =>{
+        const answerBtn = document.createElement("button");
+        answerBtn.textContent = answer;
+
+
+        answerBtn.addEventListener("click", ()=>{
+          if(answer===currentQuestion.correct){
+            score++;
+            answerBtn.classList.add("correctBtn");
+          }
+
+          else {
+            answerBtn.classList.add("incorrectBtn");
+          }
+
+          nextBtn.style.display = "block";
+
+          scoreDisplay.textContent = `Score: ${score}`;
+          answerBtn.disabled = true;
+
+
+          const allButtons = answersDisplay.querySelectorAll("button");
+          allButtons.forEach(button =>{
+            button.disabled = true;
+
+          });
+        });
+
+
+        answersDisplay.appendChild(answerBtn);
+      });
+    }
+
+
+
+     nextBtn.addEventListener("click", ()=>{
+      currentQuestionIndex++;
+      nextBtn.style.display = "none";
+
+       if(currentQuestionIndex<questions.length){
+        renderQuestion();
+       }
+
+       else{
+        questionsDisplay.textContent = `Quiz has finished! you scored ${score}/${questions.length}`;
+        answersDisplay.innerHTML = "";
+        const restartBtn = document.createElement("button");
+        restartBtn.textContent = "Restart";
+        restartBtn.className = "restartBtn";
+        
+        restartBtn.addEventListener("click", ()=>{
+          currentQuestionIndex = 0;
+          score = 0;
+          scoreDisplay.textContent = `Score: ${score}`;
+          renderQuestion();
+        });
+
+          quizCard.appendChild(restartBtn);
+      }
+
+    });
+
+    renderQuestion();
