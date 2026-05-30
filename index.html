@@ -99,6 +99,12 @@
         answerBtn.addEventListener("click", ()=>{
           if(answer===currentQuestion.correct){
             score++;
+            answerBtn.classList.add("correctBtn");
+            answerBtn.style.backgroundColor = "green";
+          }
+          else {
+            answerBtn.classList.add("incorrectBtn");
+            answerBtn.style.backgroundColor = "red";
           }
 
           nextBtn.style.display = "block";
