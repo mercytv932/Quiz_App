@@ -10,7 +10,7 @@
   <div class="questionsDisplay"></div>
   <div class="answersDisplay"></div>
   <div class="scoreDisplay"></div>
-  <button class="nextBtn">Next</button>
+  <button class="nextBtn" style="display: none;">Next</button>
 
   <script>
     const questionsDisplay = document.querySelector(".questionsDisplay");
@@ -95,36 +95,45 @@
         const answerBtn = document.createElement("button");
         answerBtn.textContent = answer;
 
+
         answerBtn.addEventListener("click", ()=>{
           if(answer===currentQuestion.correct){
             score++;
           }
 
+          nextBtn.style.display = "block";
+
           scoreDisplay.textContent = `Score: ${score}`;
           answerBtn.disabled = true;
 
+
           const allButtons = answersDisplay.querySelectorAll("button");
           allButtons.forEach(button =>{
-            button.disabled = true
+            button.disabled = true;
+
           });
         });
+
 
         answersDisplay.appendChild(answerBtn);
       });
     }
 
-    nextBtn.addEventListener("click", ()=>{
+
+
+     nextBtn.addEventListener("click", ()=>{
       currentQuestionIndex++;
+      nextBtn.style.display = "none";
 
       if(currentQuestionIndex<questions.length){
         renderQuestion();
       }
-      
+
       else{
         questionsDisplay.textContent = `Quiz has finished! you scored ${score}/${questions.length}`;
         answersDisplay.innerHTML = "";
-        nextBtn.style.display = "none";
       }
+
     });
 
     renderQuestion();
