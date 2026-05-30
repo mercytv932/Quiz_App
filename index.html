@@ -6,6 +6,11 @@
   <title>Quiz</title>
 
   <style>
+
+    body {
+      background-color: #f3f4f6;
+    }
+    
   .container {
     max-width: 700px;
     margin: 0 auto;
@@ -15,8 +20,22 @@
     justify-content: center;
   }
 
+  .quizCard {
+    background: white;
+    margin: 100px auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgb(0,0,0,0.1);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
   .questionsDisplay {
-    margin-bottom: 24px;
+    margin-bottom: 2rem;
     text-align: left;
     font-size: 1.25rem;
     font-weight: 600;
@@ -34,20 +53,83 @@
     padding: 12px 16px;
     border: 1px solid #ddd;
     cursor: pointer;
+    transition: 0.2s ease;
+    border-radius: 8px;
+    background: #f5f5f5;
   }
+
+  .answersDisplay button:hover {
+    transform: translateY(-2px);
+  }
+
+  .correctBtn {
+    background-color: #22c55e !important;
+    color: white;
+  }
+
+  .incorrectBtn {
+    background-color: #ef4444 !important;
+    color: white;
+  }
+
+
+  .nextBtn {
+    margin-top: 1rem;
+    padding: 12px 24px;
+    background-color: #25663b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+  }
+
+  .nextBtn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .restartBtn {
+    margin-top: 1rem;
+    padding: 12px 24px;
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transform-origin: 0.2s ease;
+  }
+
+  .restartBtn:hover {
+    background-color: #16a34a;
+    transform: translateY(-2px);
+  }
+
+  .scoreDisplay {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
   </style>
 </head>
 <body>
+
   <div class="container">
+    <div class="quizCard">
   <h1>Quiz</h1>
   <div class="questionsDisplay"></div>
   <div class="answersDisplay"></div>
   <div class="scoreDisplay"></div>
   <button class="nextBtn" style="display: none;">Next</button>
+    </div>
   </div>
 
 
   <script>
+    const quizCard = document.querySelector(".quizCard")
     const questionsDisplay = document.querySelector(".questionsDisplay");
     const answersDisplay = document.querySelector(".answersDisplay");
     const scoreDisplay = document.querySelector(".scoreDisplay");
@@ -136,7 +218,7 @@
             score++;
             answerBtn.classList.add("correctBtn");
           }
-          
+
           else {
             answerBtn.classList.add("incorrectBtn");
           }
@@ -174,14 +256,16 @@
         answersDisplay.innerHTML = "";
         const restartBtn = document.createElement("button");
         restartBtn.textContent = "Restart";
+        restartBtn.className = "restartBtn";
         
         restartBtn.addEventListener("click", ()=>{
           currentQuestionIndex = 0;
           score = 0;
+          scoreDisplay.textContent = `Score: ${score}`;
           renderQuestion();
         });
 
-          document.body.appendChild(restartBtn);
+          quizCard.appendChild(restartBtn);
       }
 
     });
