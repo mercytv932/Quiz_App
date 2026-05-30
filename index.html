@@ -14,9 +14,12 @@
 
   <script>
     const questionsDisplay = document.querySelector(".questionsDisplay");
-    const answerDisplay = document.querySelector("answerDisplay");
+    const answersDisplay = document.querySelector(".answersDisplay");
     const scoreDisplay = document.querySelector(".scoreDisplay");
     const nextBtn = document.querySelector(".nextBtn");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
 
     const questions = [
       
@@ -83,6 +86,20 @@
 
     ];
 
+    function renderQuestion(){
+      answersDisplay.innerHTML = "";
+      const currentQuestion = questions[currentQuestionIndex];
+      questionsDisplay.textContent = currentQuestion.question;
+
+       currentQuestion.answers.forEach(answer =>{
+        const answerBtn = document.createElement("button");
+        answerBtn.textContent = answer;
+
+        answersDisplay.appendChild(answerBtn);
+      });
+    }
+
+    renderQuestion();
     
   </script>
 </body>
