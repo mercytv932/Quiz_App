@@ -101,6 +101,12 @@
           }
 
           scoreDisplay.textContent = `Score: ${score}`;
+          answerBtn.disabled = true;
+
+          const allButtons = answersDisplay.querySelectorAll("button");
+          allButtons.forEach(button =>{
+            button.disabled = true
+          });
         });
 
         answersDisplay.appendChild(answerBtn);
@@ -109,11 +115,11 @@
 
     nextBtn.addEventListener("click", ()=>{
       currentQuestionIndex++;
-      renderQuestion();
 
       if(currentQuestionIndex<questions.length){
         renderQuestion();
       }
+      
       else{
         questionsDisplay.textContent = `Quiz has finished! you scored ${score}/${questions.length}`;
         answersDisplay.innerHTML = "";
