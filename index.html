@@ -95,9 +95,31 @@
         const answerBtn = document.createElement("button");
         answerBtn.textContent = answer;
 
+        answerBtn.addEventListener("click", ()=>{
+          if(answer===currentQuestion.correct){
+            score++;
+          }
+
+          scoreDisplay.textContent = `Score: ${score}`;
+        });
+
         answersDisplay.appendChild(answerBtn);
       });
     }
+
+    nextBtn.addEventListener("click", ()=>{
+      currentQuestionIndex++;
+      renderQuestion();
+
+      if(currentQuestionIndex<questions.length){
+        renderQuestion();
+      }
+      else{
+        questionsDisplay.textContent = `Quiz has finished! you scored ${score}/${questions.length}`;
+        answersDisplay.innerHTML = "";
+        nextBtn.style.display = "none";
+      }
+    });
 
     renderQuestion();
     
