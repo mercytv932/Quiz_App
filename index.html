@@ -4,13 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz</title>
+
+  <style>
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .questionsDisplay {
+    margin-bottom: 24px;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .answersDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .answersDisplay button {
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+  </style>
 </head>
 <body>
+  <div class="container">
   <h1>Quiz</h1>
   <div class="questionsDisplay"></div>
   <div class="answersDisplay"></div>
   <div class="scoreDisplay"></div>
   <button class="nextBtn" style="display: none;">Next</button>
+  </div>
+
 
   <script>
     const questionsDisplay = document.querySelector(".questionsDisplay");
@@ -100,11 +135,10 @@
           if(answer===currentQuestion.correct){
             score++;
             answerBtn.classList.add("correctBtn");
-            answerBtn.style.backgroundColor = "green";
           }
+          
           else {
             answerBtn.classList.add("incorrectBtn");
-            answerBtn.style.backgroundColor = "red";
           }
 
           nextBtn.style.display = "block";
@@ -148,7 +182,6 @@
         });
 
           document.body.appendChild(restartBtn);
-          renderQuestion();
       }
 
     });
